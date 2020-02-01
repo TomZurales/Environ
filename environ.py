@@ -4,6 +4,7 @@ import keyboard
 import sys
 
 keywords = ["create", "delete"]
+recordings = {}
 args = sys.argv
 if len(args) == 1:
     print("Ex: environ create python")
@@ -11,7 +12,8 @@ if len(args) == 1:
 
 name = args[1]
 if name in keywords:
-    name = args[2]
-    print(f"Creating or deleting {name}")
-    exit()
+    if name == keywords[0]:
+        print(f"Recording setup for {args[2]}\nPress ESC to end\n")
+        recordings[args[2]] = keyboard.record(until='esc')
+        keyboard.play(recordings[args[2]], speed_factor=10)
 print(f"Setting up environment {name}")
